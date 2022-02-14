@@ -29,12 +29,12 @@ async function main() {
 
   console.log("Ticket token deployed to:", ticketToken.address);
 
-  const StakeWheel = await hre.ethers.getContractFactory("StakeWheel");
-  const stakeWheel = await StakeWheel.deploy(stakeToken.address, ticketToken.address);
+  const GivingFund = await hre.ethers.getContractFactory("GivingFund");
+  const givingFund = await GivingFund.deploy(stakeToken.address, ticketToken.address);
 
-  await stakeWheel.deployed();
+  await givingFund.deployed();
 
-  console.log("Stake Wheel deployed to:", stakeWheel.address);
+  console.log("Giving Fund deployed to:", givingFund.address);
 
   const GiftToken = await hre.ethers.getContractFactory("GiftToken");
   const giftToken = await GiftToken.deploy();

@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "./StakeToken.sol";
 import "./TicketToken.sol";
 
-contract StakeWheel is ERC721 {
+contract GivingFund is ERC721 {
     TicketToken private stakeToken;
     TicketToken private ticketToken;
 
@@ -16,7 +16,7 @@ contract StakeWheel is ERC721 {
     address payable _owner;
     mapping(uint => StakeInfo) public stakelist;
 
-    constructor(TicketToken _stakeToken, TicketToken _ticketToken) ERC721("Stake Wheel NFT", "SWNFT") public {
+    constructor(TicketToken _stakeToken, TicketToken _ticketToken) ERC721("Giving Fund NFT", "GFNFT") public {
         _owner = msg.sender;
         stakeToken = _stakeToken;
         ticketToken = _ticketToken;
