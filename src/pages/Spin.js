@@ -1,22 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { Layout } from 'antd';
 
-import Sidebar from '../components/myaccount/Sidebar';
-import Overview from '../components/myaccount/Overview';
+import Sidebar from '../components/spin/Sidebar';
+import SpinWheel from '../components/spin/SpinWheel';
+import Winnings from '../components/spin/Winnings';
 
-function MyAccount({ walletAddress, stakeWheelBlockchain, myWinnings }) {
-  const [currentTab, setCurrentTab] = useState("Overview");
+function Spin({ walletAddress, ethProvider, stakeWheelBlockchain, ticketTokenBlockchain, myWinnings, setMyWinnings }) {
+  const [currentTab, setCurrentTab] = useState("Spin");
 
   let content;
 
   switch (currentTab) {
-    case "Overview":
-      content = <Overview
+    case "Spin":
+      content = <SpinWheel
         walletAddress={walletAddress}
-        stakeWheelBlockchain={stakeWheelBlockchain} />;
+        ethProvider={ethProvider}
+        stakeWheelBlockchain={stakeWheelBlockchain}
+        ticketTokenBlockchain={ticketTokenBlockchain}
+        setMyWinnings={setMyWinnings} />;
       break;
-    case "Donations":
-      content = <h1>Comming Soon..</h1>;
+    case "Winnings":
+      content = <Winnings
+        myWinnings={myWinnings} />;
       break;
     default:
       content = 'Page not found';
@@ -53,4 +58,4 @@ function MyAccount({ walletAddress, stakeWheelBlockchain, myWinnings }) {
   </div>;
 }
 
-export default MyAccount;
+export default Spin;

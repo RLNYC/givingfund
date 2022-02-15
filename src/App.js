@@ -7,7 +7,7 @@ import './App.css';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Stake from './pages/Stake';
-import SpinWheel from './pages/SpinWheel';
+import Spin from './pages/Spin';
 import Gift from './pages/Gift';
 import MyAccount from './pages/MyAccount';
 import Faucet from './pages/Faucet';
@@ -76,7 +76,7 @@ function App() {
                     ticketTokenBlockchain={ticketTokenBlockchain} />} >
                 </Route>
                 <Route path="/spin" element={
-                  <SpinWheel
+                  <Spin
                     walletAddress={walletAddress}
                     ethProvider={ethProvider}
                     stakeWheelBlockchain={stakeWheelBlockchain}

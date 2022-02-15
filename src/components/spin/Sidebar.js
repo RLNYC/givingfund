@@ -14,13 +14,13 @@ function Sidebar({ currentTab, setCurrentTab }) {
     mode="inline"
   >
     <p style={{ margin: '1.4rem 0 1.4rem 1.4rem', fontWeight: 'bold'}}>
-      ACCOUNT DASHBOARD
+      DASHBOARD
     </p>
-    <Menu.Item key="Overview">
-      Overview
+    <Menu.Item key="Spin">
+      Spin
     </Menu.Item>
-    <Menu.Item key="Donations">
-      Donations
+    <Menu.Item key="Winnings">
+      My Winnings
     </Menu.Item>
   </Menu>;
 }

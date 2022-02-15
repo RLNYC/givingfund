@@ -3,16 +3,15 @@ import { Row, Col, Typography, Divider, List, Card } from 'antd';
 import * as htmlToImage from 'html-to-image';
 import  axios from "axios";
 
-import { PINATA_API_KEY, PINATA_SECRET_API_KEY } from '../config';
-import { convertBase64ToImage }  from '../utils/convertImage';
-import Wheel from '../components/Wheel';
-import PrizeInformationCard from '../components/PrizeInformationCard';
-import ResultModal from '../components/ResultModal';
+import { PINATA_API_KEY, PINATA_SECRET_API_KEY } from '../../config';
+import { convertBase64ToImage } from '../../utils/convertImage';
+import Wheel from '../Wheel';
+import PrizeInformationCard from '../PrizeInformationCard';
+import ResultModal from '../ResultModal';
 
 function SpinWheel({ walletAddress, ethProvider, stakeWheelBlockchain, ticketTokenBlockchain, myWinnings, setMyWinnings }) {
   const [wheelclass, setWheelclass] = useState("box");
   const [avaxBalance, setAvaxBalance] = useState(0);
-  const [oneToUSDBalance, setOneToUSDBalance] = useState(0);
   const [tokenBalance, setTokenBalance] = useState(0);
   const [winningURL, setWinnginURL] = useState("");
   const [wonOne, setWonOne] = useState(0);
@@ -97,13 +96,13 @@ function SpinWheel({ walletAddress, ethProvider, stakeWheelBlockchain, ticketTok
   return (
     <Card>
       <Row id="wheelgame" gutter={16}>
-        <Col className="gutter-row" xs={{ span: 32 }} lg={{ span: 12 }}>
+        <Col className="gutter-row" xs={{ span: 32 }} lg={{ span: 14 }}>
           <Wheel
             wheelclass={wheelclass}
             loading={loading}
             earnToken={earnToken}/>
         </Col>
-        <Col className="gutter-row" xs={{ span: 32 }} lg={{ span: 12 }}>
+        <Col className="gutter-row" xs={{ span: 32 }} lg={{ span: 10 }}>
           <Typography.Title level={2} style={{ marginTop: '8rem'}}>
             Your Spin Tickets: {tokenBalance / 10 ** 18}
           </Typography.Title >
@@ -115,7 +114,7 @@ function SpinWheel({ walletAddress, ethProvider, stakeWheelBlockchain, ticketTok
             itemLayout="horizontal">
               <List.Item>
                 <List.Item.Meta
-                  title={`AVAX : ${wonOne / 10 ** 18}`}
+                  title={`AETH : ${wonOne / 10 ** 18}`}
                 />
               </List.Item>
               <List.Item>
@@ -124,6 +123,8 @@ function SpinWheel({ walletAddress, ethProvider, stakeWheelBlockchain, ticketTok
                 />
               </List.Item>
           </List>
+          <br />
+          <p>* Get more spin tickets by purchasing donation tokens.</p>
         </Col>
       </Row>
 
