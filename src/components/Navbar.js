@@ -4,14 +4,13 @@ import { Layout, Menu, Button } from 'antd';
 import { ethers } from 'ethers';
 import Web3Modal from 'web3modal';
 
-import { STAKE_WHEEL_ADDRESS, STAKE_TOKEN_ADDRESS, TICKET_TOKEN_ADDRESS, GIFT_TOKEN_ADDRESS } from '../config';
-import StakeWheel from '../artifacts/contracts/StakeWheel.sol/StakeWheel.json';
-import StakeToken from '../artifacts/contracts/StakeToken.sol/StakeToken.json';
+import { GIVING_FUND_ADDRESS, DONATION_FUND_TOKEN_ADDRESS, TICKET_TOKEN_ADDRESS, GIFT_TOKEN_ADDRESS } from '../config';
+import GivingFund from '../artifacts/contracts/GivingFund.sol/GivingFund.json';
+import DonationFundToken from '../artifacts/contracts/DonationFundToken.sol/DonationFundToken.json';
 import TicketToken from '../artifacts/contracts/TicketToken.sol/TicketToken.json';
-import GiftToken from '../artifacts/contracts/GiftToken.sol/GiftToken.json';
 import Logo from '../assets/logo.png';
 
-function Navbar({ walletAddress, setWalletAddress, setEthProvider, setStakeWheelBlockchain, setStakeTokenBlockchain, setTicketTokenBlockchain, setGiftTokenBlockchain }) {
+function Navbar({ walletAddress, setWalletAddress, setEthProvider, setGivingFundBlockchain, setDonationFundTokenBlockchain, setTicketTokenBlockchain }) {
   const connetToWallet = async () => {
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
@@ -23,17 +22,14 @@ function Navbar({ walletAddress, setWalletAddress, setEthProvider, setStakeWheel
     const address = await signer.getAddress();
     setWalletAddress(address);
 
-    let contract = new ethers.Contract(STAKE_WHEEL_ADDRESS, StakeWheel.abi, signer);
-    setStakeWheelBlockchain(contract);
+    let contract = new ethers.Contract(GIVING_FUND_ADDRESS, GivingFund.abi, signer);
+    setGivingFundBlockchain(contract);
 
     let contract2 = new ethers.Contract(TICKET_TOKEN_ADDRESS, TicketToken.abi, signer);
     setTicketTokenBlockchain(contract2);
 
-    let contract3 = new ethers.Contract(STAKE_TOKEN_ADDRESS, StakeToken.abi, signer);
-    setStakeTokenBlockchain(contract3);
-
-    let contract4 = new ethers.Contract(GIFT_TOKEN_ADDRESS, GiftToken.abi, signer);
-    setGiftTokenBlockchain(contract4);
+    let contract3 = new ethers.Contract(DONATION_FUND_TOKEN_ADDRESS, DonationFundToken.abi, signer);
+    setDonationFundTokenBlockchain(contract3);
   }
 
   return (
@@ -45,11 +41,6 @@ function Navbar({ walletAddress, setWalletAddress, setEthProvider, setStakeWheel
         <Menu.Item key="1">
           <Link to="/">
             Home
-          </Link>
-        </Menu.Item>
-        <Menu.Item key="2">
-          <Link to="/stake">
-            Stake
           </Link>
         </Menu.Item>
         <Menu.Item key="3">

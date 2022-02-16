@@ -6,7 +6,6 @@ import Moralis from 'moralis';
 import './App.css';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
-import Stake from './pages/Stake';
 import Spin from './pages/Spin';
 import Gift from './pages/Gift';
 import MyAccount from './pages/MyAccount';
@@ -21,9 +20,8 @@ function App() {
   const [walletAddress, setWalletAddress] = useState('');
   const [ethProvider, setEthProvider] = useState(null);
   const [ticketTokenBlockchain, setTicketTokenBlockchain] = useState(null);
-  const [stakeTokenBlockchain, setStakeTokenBlockchain] = useState(null);
-  const [stakeWheelBlockchain, setStakeWheelBlockchain] = useState(null);
-  const [giftTokenBlockchain, setGiftTokenBlockchain] = useState(null);
+  const [donationFundTokenBlockchain, setDonationFundTokenBlockchain] = useState(null);
+  const [givingFundBlockchain, setGivingFundBlockchain] = useState(null);
   const [myWinnings, setMyWinnings] = useState([]);
 
   return (
@@ -33,10 +31,9 @@ function App() {
           walletAddress={walletAddress}
           setWalletAddress={setWalletAddress}
           setEthProvider={setEthProvider}
-          setStakeWheelBlockchain={setStakeWheelBlockchain}
-          setStakeTokenBlockchain={setStakeTokenBlockchain}
-          setTicketTokenBlockchain={setTicketTokenBlockchain}
-          setGiftTokenBlockchain={setGiftTokenBlockchain} />
+          setGivingFundBlockchain={setGivingFundBlockchain}
+          setDonationFundTokenBlockchain={setDonationFundTokenBlockchain}
+          setTicketTokenBlockchain={setTicketTokenBlockchain} />
         <Layout>
           <Layout className="white-bg-color" style={{ padding: '0 5rem 5rem', minHeight: '92vh' }}>
             <Layout.Content
@@ -47,46 +44,38 @@ function App() {
               }}
             >
               <Routes>
-                <Route path="/stake" element={
-                  <Stake
-                    walletAddress={walletAddress}
-                    stakeWheelBlockchain={stakeWheelBlockchain}
-                    stakeTokenBlockchain={stakeTokenBlockchain}
-                    ethProvider={ethProvider} />} >
-                </Route>
                 <Route path="/gift" element={
                   <Gift
                     walletAddress={walletAddress}
-                    ethProvider={ethProvider}
-                    giftTokenBlockchain={giftTokenBlockchain} />} >
+                    ethProvider={ethProvider} />} >
                 </Route>
                 <Route path="/myaccount" element={
                   <MyAccount
                     walletAddress={walletAddress}
-                    stakeWheelBlockchain={stakeWheelBlockchain}
-                    stakeTokenBlockchain={stakeTokenBlockchain}
+                    givingFundBlockchain={givingFundBlockchain}
+                    donationFundTokenBlockchain={donationFundTokenBlockchain}
                     ticketTokenBlockchain={ticketTokenBlockchain}
                     myWinnings={myWinnings} />} >
                 </Route>
                 <Route path="/faucet" element={
                   <Faucet
                     walletAddress={walletAddress}
-                    stakeWheelBlockchain={stakeWheelBlockchain}
-                    stakeTokenBlockchain={stakeTokenBlockchain}
+                    givingFundBlockchain={givingFundBlockchain}
+                    donationFundTokenBlockchain={donationFundTokenBlockchain}
                     ticketTokenBlockchain={ticketTokenBlockchain} />} >
                 </Route>
                 <Route path="/spin" element={
                   <Spin
                     walletAddress={walletAddress}
                     ethProvider={ethProvider}
-                    stakeWheelBlockchain={stakeWheelBlockchain}
+                    GivingFundBlockchain={givingFundBlockchain}
                     ticketTokenBlockchain={ticketTokenBlockchain}
                     myWinnings={myWinnings}
                     setMyWinnings={setMyWinnings} />} >
                 </Route>
                 <Route path="/" element={
                   <Home
-                    stakeWheelBlockchain={stakeWheelBlockchain} /> } >
+                    GivingFundBlockchain={givingFundBlockchain} /> } >
                 </Route>
               </Routes>
             </Layout.Content>
