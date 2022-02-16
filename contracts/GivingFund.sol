@@ -64,7 +64,30 @@ contract GivingFund is ERC721 {
         uint redeemId
     );
 
-    // Create Match NFT
+    event BuyDonation (
+        uint buyAmount,
+        address payable from
+    );
+    
+    // Buy Donation Fund Token and get Ticket Token
+    function purchaseDonationFundToken(uint _nftId) payable public  {
+        // Bonus Donation Fund Token when using Matching Fund NFT
+        if(_nftId > 0) {
+            require(ownerOf(_nftId) == msg.sender, "You do not own this NFT");
+            GiftInfo storage _data = giftList[_nftId];
+            require(msg.value >= _data.amount, "You must donate equal or more than the matching amount");
+            donationFundToken.mint(msg.sender, _data.amount * 20);
+        }
+        prizePool +=  msg.value * 7 / 100;
+        charityAmount += msg.value * 3 / 100;
+        totalDonation += msg.value;
+        donationFundToken.mint(msg.sender, msg.value * 20);
+        ticketToken.mint(msg.sender, msg.value * 10);
+
+        emit BuyDonation(msg.value, msg.sender);
+    }
+
+    // Create Matching Fund NFT
     function mintMatchingGiftNFT() payable public  {
         // Create NFT
         uint _nftId = totalSupply().add(1);
