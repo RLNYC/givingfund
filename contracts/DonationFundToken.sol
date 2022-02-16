@@ -3,12 +3,12 @@ pragma solidity ^0.6.12;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-contract StakeToken is ERC20 {
+contract DonationFundToken is ERC20 {
     address public minter;
 
     event MinterChanged(address indexed from, address to);
 
-    constructor() public payable ERC20("Stake Token", "SKT") {
+    constructor() public payable ERC20("Donation Fund Token", "DFT") {
         minter = msg.sender;
     }
 

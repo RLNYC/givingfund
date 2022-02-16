@@ -14,13 +14,12 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const StakeToken = await hre.ethers.getContractFactory("StakeToken");
-  const stakeToken = await StakeToken.deploy();
+  const DonationFundToken = await hre.ethers.getContractFactory("DonationFundToken");
+  const donationFundToken = await DonationFundToken.deploy();
 
-  await stakeToken.deployed();
+  await donationFundToken.deployed();
 
-  console.log("Stake token deployed to:", stakeToken.address);
-
+  console.log("Donation fund token deployed to:", donationFundToken.address);
 
   const TicketToken = await hre.ethers.getContractFactory("TicketToken");
   const ticketToken = await TicketToken.deploy();
@@ -30,18 +29,11 @@ async function main() {
   console.log("Ticket token deployed to:", ticketToken.address);
 
   const GivingFund = await hre.ethers.getContractFactory("GivingFund");
-  const givingFund = await GivingFund.deploy(stakeToken.address, ticketToken.address);
+  const givingFund = await GivingFund.deploy(donationFundToken.address, ticketToken.address);
 
   await givingFund.deployed();
 
   console.log("Giving Fund deployed to:", givingFund.address);
-
-  const GiftToken = await hre.ethers.getContractFactory("GiftToken");
-  const giftToken = await GiftToken.deploy();
-
-  await giftToken.deployed();
-
-  console.log("Gift Token deployed to:", giftToken.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

@@ -2,11 +2,11 @@
 pragma solidity ^0.6.12;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "./StakeToken.sol";
+import "./DonationFundToken.sol";
 import "./TicketToken.sol";
 
 contract GivingFund is ERC721 {
-    TicketToken private stakeToken;
+    DonationFundToken private donationFundToken;
     TicketToken private ticketToken;
 
     uint public totalDonation = 0;
@@ -17,9 +17,9 @@ contract GivingFund is ERC721 {
     mapping(uint => GiftInfo) public giftList;
     mapping(uint => uint) public giftRedeemList;
 
-    constructor(TicketToken _stakeToken, TicketToken _ticketToken) ERC721("Giving Fund NFT", "GFNFT") public {
+    constructor(DonationFundToken _donationFundToken, TicketToken _ticketToken) ERC721("Giving Fund NFT", "GFNFT") public {
         _owner = msg.sender;
-        stakeToken = _stakeToken;
+        donationFundToken = _donationFundToken;
         ticketToken = _ticketToken;
     }
 
