@@ -8,7 +8,7 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Spin from './pages/Spin';
 import Gift from './pages/Gift';
-import MyAccount from './pages/MyAccount';
+import MyGiving from './pages/MyGiving';
 import Faucet from './pages/Faucet';
 import { MORALIS_APPID, MORALIS_SERVERURL} from './config';
 
@@ -49,8 +49,8 @@ function App() {
                     walletAddress={walletAddress}
                     ethProvider={ethProvider} />} >
                 </Route>
-                <Route path="/myaccount" element={
-                  <MyAccount
+                <Route path="/my-giving" element={
+                  <MyGiving
                     walletAddress={walletAddress}
                     givingFundBlockchain={givingFundBlockchain}
                     donationFundTokenBlockchain={donationFundTokenBlockchain}

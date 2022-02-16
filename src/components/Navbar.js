@@ -43,22 +43,17 @@ function Navbar({ walletAddress, setWalletAddress, setEthProvider, setGivingFund
             Home
           </Link>
         </Menu.Item>
-        <Menu.Item key="3">
+        <Menu.Item key="2">
           <Link to="/spin">
             Spin
           </Link>
         </Menu.Item>
-        <Menu.Item key="4">
-          <Link to="/gift">
-            Donate
+        <Menu.Item key="3">
+          <Link to="/my-giving">
+            My Giving
           </Link>
         </Menu.Item>
-        {walletAddress && <Menu.Item key="5">
-          <Link to="/myaccount">
-            My Account
-          </Link>
-        </Menu.Item>}
-        <Menu.Item key="6">
+        <Menu.Item key="4">
           <Link to="/faucet">
             Faucet
           </Link>

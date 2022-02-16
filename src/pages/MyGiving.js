@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { Layout } from 'antd';
 
-import Sidebar from '../components/myaccount/Sidebar';
-import Overview from '../components/myaccount/Overview';
+import Sidebar from '../components/mygiving/Sidebar';
 
-function MyAccount({ walletAddress, stakeWheelBlockchain, myWinnings }) {
-  const [currentTab, setCurrentTab] = useState("Overview");
+function MyGiving({ walletAddress }) {
+  const [currentTab, setCurrentTab] = useState("Donate");
 
   let content;
 
   switch (currentTab) {
-    case "Overview":
-      content = <Overview
-        walletAddress={walletAddress}
-        stakeWheelBlockchain={stakeWheelBlockchain} />;
+    case "Donate":
+      content = <h1>Donate</h1>;
       break;
-    case "Donations":
-      content = <h1>Comming Soon..</h1>;
+    case "Gift Donation":
+      content = <h1>Gift Donation</h1>;
+      break;
+    case "Gift Matching Donation":
+      content = <h1>Gift Matching Donation</h1>;
       break;
     default:
       content = 'Page not found';
@@ -53,4 +53,4 @@ function MyAccount({ walletAddress, stakeWheelBlockchain, myWinnings }) {
   </div>;
 }
 
-export default MyAccount;
+export default MyGiving;
