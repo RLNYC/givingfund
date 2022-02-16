@@ -14,12 +14,35 @@ contract GivingFund is ERC721 {
     uint public prizePoolWon = 0;
     uint public charityAmount = 0;
     address payable _owner;
+    mapping(uint => GiftInfo) public giftList;
+    mapping(uint => uint) public giftRedeemList;
 
     constructor(TicketToken _stakeToken, TicketToken _ticketToken) ERC721("Giving Fund NFT", "GFNFT") public {
         _owner = msg.sender;
         stakeToken = _stakeToken;
         ticketToken = _ticketToken;
     }
+
+    struct GiftInfo {
+        uint nftid;
+        uint startDate;
+        uint amount;
+        address payable from;
+    }
+
+    event Gifted (
+        uint nftid,
+        uint startDate,
+        uint stakeAmount,
+        address payable from
+    );
+
+    event Unstaked (
+        uint nftid,
+        uint startDate,
+        uint stakeAmount,
+        address payable from
+    );
 
     event WonWheel (
         address buyer,
@@ -28,6 +51,47 @@ contract GivingFund is ERC721 {
         uint randomNumber,
         uint wheelNumber
     );
+
+    event GiftTokenSent (
+        address from,
+        uint nftId,
+        uint redeemId
+    );
+
+     event RedeemGiftTokenHistory (
+        address to,
+        uint nftId,
+        uint redeemId
+    );
+
+    // Create Match NFT
+    function mintMatchingGiftNFT() payable public  {
+        // Create NFT
+        uint _nftId = totalSupply().add(1);
+        _safeMint(msg.sender, _nftId);
+
+        giftList[_nftId] = GiftInfo(_nftId, block.timestamp, msg.value, msg.sender);
+
+        emit Gifted(_nftId, block.timestamp, msg.value, msg.sender);
+    }
+
+    // Transfer the Match NFT to contract
+    function giveGiftNFT(uint _nftId) public {
+        transferFrom(msg.sender, address(this), _nftId);
+
+        uint randomNumber = getRandomValue(99999999999999999);
+        giftRedeemList[randomNumber] = _nftId;
+
+        emit GiftTokenSent(msg.sender, _nftId, randomNumber);
+    }
+
+    // User redeem for Gift NFT by redeem Id
+    function redeemToken(uint _redeemId) public {
+        uint _nftId = giftRedeemList[_redeemId];
+        _transfer(address(this), msg.sender, _nftId);
+
+        emit RedeemGiftTokenHistory(msg.sender, _nftId, _redeemId);
+    }
 
     // Pay 1 Ticket token to spin the wheel and a chance to earn reward
     function useTicketToken() public {
@@ -115,21 +179,8 @@ contract GivingFund is ERC721 {
     }
 
     // WARMING: Remove this on production
-    // Get 10 Stake Tokens
-    function stakeTokenFaucet() public {
-        stakeToken.mint(msg.sender, 1e19);
-    }
-
-    // WARMING: Remove this on production
     // Get 10 Ticket Tokens
     function ticketTokenFaucet() public {
         ticketToken.mint(msg.sender, 1e19);
-    }
-
-    // WARMING: Remove this on production
-    // Change start date when staking
-    function changeStakeDate(uint _nftid, uint _newDate) public {
-        StakeInfo storage userData = stakelist[_nftid];
-        userData.startDate = _newDate;
     }
 }
