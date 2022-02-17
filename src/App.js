@@ -60,9 +60,8 @@ function App() {
                 <Route path="/faucet" element={
                   <Faucet
                     walletAddress={walletAddress}
-                    givingFundBlockchain={givingFundBlockchain}
-                    donationFundTokenBlockchain={donationFundTokenBlockchain}
-                    ticketTokenBlockchain={ticketTokenBlockchain} />} >
+                    ticketTokenBlockchain={ticketTokenBlockchain}
+                    givingFundBlockchain={givingFundBlockchain} />} >
                 </Route>
                 <Route path="/spin" element={
                   <Spin
