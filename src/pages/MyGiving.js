@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Layout } from 'antd';
 
 import Sidebar from '../components/mygiving/Sidebar';
+import GiftMatchingDonation from '../components/mygiving/GiftMatchingDonation';
 
-function MyGiving({ walletAddress }) {
+function MyGiving({ walletAddress, ethProvider, givingFundBlockchain }) {
   const [currentTab, setCurrentTab] = useState("Donate");
 
   let content;
@@ -16,7 +17,10 @@ function MyGiving({ walletAddress }) {
       content = <h1>Gift Donation</h1>;
       break;
     case "Gift Matching Donation":
-      content = <h1>Gift Matching Donation</h1>;
+      content = <GiftMatchingDonation
+                  walletAddress={walletAddress}
+                  ethProvider={ethProvider}
+                  givingFundBlockchain={givingFundBlockchain} />;
       break;
     default:
       content = 'Page not found';

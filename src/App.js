@@ -53,6 +53,7 @@ function App() {
                   <MyGiving
                     walletAddress={walletAddress}
                     givingFundBlockchain={givingFundBlockchain}
+                    ethProvider={ethProvider}
                     donationFundTokenBlockchain={donationFundTokenBlockchain}
                     ticketTokenBlockchain={ticketTokenBlockchain}
                     myWinnings={myWinnings} />} >
