@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Layout } from 'antd';
 
 import Sidebar from '../components/mygiving/Sidebar';
+import GiftDonation from '../components/mygiving/GiftDonation';
 import GiftMatchingDonation from '../components/mygiving/GiftMatchingDonation';
 
 function MyGiving({ walletAddress, ethProvider, givingFundBlockchain }) {
@@ -14,7 +15,10 @@ function MyGiving({ walletAddress, ethProvider, givingFundBlockchain }) {
       content = <h1>Donate</h1>;
       break;
     case "Gift Donation":
-      content = <h1>Gift Donation</h1>;
+      content = <GiftDonation
+                  walletAddress={walletAddress}
+                  ethProvider={ethProvider}
+                  givingFundBlockchain={givingFundBlockchain} />;
       break;
     case "Gift Matching Donation":
       content = <GiftMatchingDonation

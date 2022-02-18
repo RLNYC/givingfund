@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Spin, Row, Col, Form, Input, Button, message } from 'antd';
+import { Spin, Row, Col, Form, Input, Select, Button, message } from 'antd';
 import Moralis from 'moralis';
 
 const msgList = [
@@ -8,7 +8,7 @@ const msgList = [
   "Congratulations"
 ];
 
-function GiftFormCard({ giftTokenBlockchain }) {
+function GiftFormCard({ givingFundBlockchain, nfts }) {
   const [form] = Form.useForm();
 
   const [loading, setLoading] = useState(false);
@@ -17,14 +17,19 @@ function GiftFormCard({ giftTokenBlockchain }) {
     try {
       setLoading(true);
       console.log(values);
+
+      const transaction = await givingFundBlockchain.giveGiftNFT(values.matchingNFTs);
+      const tx = await transaction.wait();
+      console.log(tx);
       
-      const redeemId = await sendGiftToken(values);
+      const redeemId = tx.events[2].args.redeemId.toString();
+      console.log(redeemId);
 
       Moralis.Cloud.run("sendEmailToUser", {
         email: values.recipient,
         fromemail: values.fromEmail,
         code: redeemId,
-        tokenamount: values.amount
+        tokenamount: values.amount || 0
       });
 
       message.success('Email sent');
@@ -35,7 +40,7 @@ function GiftFormCard({ giftTokenBlockchain }) {
   };
 
   const sendGiftToken = async (values) => {
-    const transaction = await giftTokenBlockchain.sendTokenToSomeone((+values.amount * 10 ** 18).toString());
+    const transaction = await givingFundBlockchain.sendTokenToSomeone((+values.amount * 10 ** 18).toString());
     const tx = await transaction.wait();
     console.log(tx);
 
@@ -76,15 +81,24 @@ function GiftFormCard({ giftTokenBlockchain }) {
             </Form.Item>
 
             <Form.Item
-              name="amount"
-              label="Gift Amount"
+              name="matchingNFTs"
+              label="Matching NFTs"
               rules={[
                 {
                   required: true,
                 },
               ]}
             >
-              <Input />
+              <Select
+                placeholder="Select your Matching NFTs (Drop down list)"
+                allowClear
+              >
+                {nfts.map(nft => (
+                  <Select.Option key={nft.nftid.toString()} value={nft.nftid.toString()}>
+                    NFT#{nft.nftid.toString()} ({nft.amount.toString() / 10 ** 18} AETH)
+                  </Select.Option>
+                ))}
+              </Select>
             </Form.Item>
 
             <Form.Item

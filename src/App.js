@@ -7,7 +7,6 @@ import './App.css';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Spin from './pages/Spin';
-import Gift from './pages/Gift';
 import MyGiving from './pages/MyGiving';
 import Faucet from './pages/Faucet';
 import ClaimToken from './pages/ClaimToken';
@@ -45,11 +44,6 @@ function App() {
               }}
             >
               <Routes>
-                <Route path="/gift" element={
-                  <Gift
-                    walletAddress={walletAddress}
-                    ethProvider={ethProvider} />} >
-                </Route>
                 <Route path="/my-giving" element={
                   <MyGiving
                     walletAddress={walletAddress}
