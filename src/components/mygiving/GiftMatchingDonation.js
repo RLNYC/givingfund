@@ -42,7 +42,7 @@ function GiftMatchingDonation({ walletAddress, ethProvider, givingFundBlockchain
   return (
     <div>
       <Typography.Title level={3}>
-        Your outstanding matching gift:  1 aETH
+        Your sent matching gift:  1 aETH
       </Typography.Title>
       <p>All unused matching donation gift will expired in in a year and refunded to your account</p>
       <Typography.Title level={3}>

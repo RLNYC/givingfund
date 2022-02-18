@@ -10,6 +10,7 @@ import Spin from './pages/Spin';
 import Gift from './pages/Gift';
 import MyGiving from './pages/MyGiving';
 import Faucet from './pages/Faucet';
+import ClaimToken from './pages/ClaimToken';
 import { MORALIS_APPID, MORALIS_SERVERURL} from './config';
 
 const serverUrl = MORALIS_SERVERURL;
@@ -68,10 +69,15 @@ function App() {
                   <Spin
                     walletAddress={walletAddress}
                     ethProvider={ethProvider}
-                    GivingFundBlockchain={givingFundBlockchain}
+                    givingFundBlockchain={givingFundBlockchain}
                     ticketTokenBlockchain={ticketTokenBlockchain}
                     myWinnings={myWinnings}
                     setMyWinnings={setMyWinnings} />} >
+                </Route>
+                <Route path="/claim/:redeedid" element={
+                  <ClaimToken
+                    walletAddress={walletAddress}
+                    givingFundBlockchain={givingFundBlockchain} />} >
                 </Route>
                 <Route path="/" element={
                   <Home

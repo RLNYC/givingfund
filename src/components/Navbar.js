@@ -58,6 +58,11 @@ function Navbar({ walletAddress, setWalletAddress, setEthProvider, setGivingFund
             Faucet
           </Link>
         </Menu.Item>
+        <Menu.Item key="5">
+          <Link to="/claim/0">
+            Redeem
+          </Link>
+        </Menu.Item>
       </Menu>
       {!walletAddress
         ? <div>
