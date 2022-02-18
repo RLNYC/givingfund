@@ -4,18 +4,18 @@ import { Form, Spin, Input, Card, Button } from 'antd';
 
 const layout = {
   labelCol: {
-    span: 6,
+    span: 5,
   },
 };
 
 const tailLayout = {
   wrapperCol: {
-    offset: 16,
-    span: 16,
+    offset: 10,
+    span: 10,
   },
 };
 
-function ClaimToken({ walletAddress }) {
+function ClaimToken({ walletAddress, givingFundBlockchain }) {
   const { redeedid } = useParams();
   const [form] = Form.useForm();
 
@@ -26,6 +26,12 @@ function ClaimToken({ walletAddress }) {
     try{
       setLoading(true);
       console.log(values);
+
+      const transaction = await givingFundBlockchain.redeemToken(values.giftcode);
+      const tx = await transaction.wait();
+      console.log(tx);
+      setTransactionHash(tx.transactionHash);
+      setLoading(false);
     } catch(error) {
       console.error(error);
       setLoading(false);
