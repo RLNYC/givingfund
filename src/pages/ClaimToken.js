@@ -59,7 +59,7 @@ function ClaimToken({ walletAddress, givingFundBlockchain }) {
 
                   <Form.Item {...tailLayout}>
                     <Button type="primary" htmlType="submit" className="primary-bg-color">
-                      Donate
+                      Redeem
                     </Button>
                   </Form.Item>
                 </Form>

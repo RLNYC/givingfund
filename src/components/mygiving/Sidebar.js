@@ -19,11 +19,11 @@ function Sidebar({ currentTab, setCurrentTab }) {
     <Menu.Item key="Donate">
       Donate
     </Menu.Item>
-    <Menu.Item key="Gift Donation">
-      Gift Donation
-    </Menu.Item>
     <Menu.Item key="Gift Matching Donation">
-      Gift Matching Donation
+      Matching Donation Gift
+    </Menu.Item>
+    <Menu.Item key="Gift Donation">
+      Send Donation Gift
     </Menu.Item>
   </Menu>;
 }

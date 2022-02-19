@@ -104,7 +104,7 @@ function Donate({ walletAddress, ethProvider, givingFundBlockchain, donationFund
         </div>
 
         <Typography.Title level={3}>
-          Your Available Funds for matching gift:  {ethBalance / 10 ** 18} aETH
+          Your Available Funds:  {ethBalance / 10 ** 18} aETH
         </Typography.Title>
 
         <Card>
@@ -126,7 +126,7 @@ function Donate({ walletAddress, ethProvider, givingFundBlockchain, donationFund
 
             <Form.Item
               name="matchingNFTs"
-              label="Matching NFTs"
+              label="Available Matching Gift"
             >
               <Select
                 placeholder="Select your Matching NFTs (Drop down list)"
@@ -149,6 +149,9 @@ function Donate({ walletAddress, ethProvider, givingFundBlockchain, donationFund
               </Button>
             </Form.Item>
           </Form>
+
+          <p>* You receive 10 spin ticket for every ETH purchase of donation fund token.</p>
+          <p>* Only verified charities are able to redeem donation tokens for cash.</p>
         </Card>
 
         <Card>

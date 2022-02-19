@@ -81,7 +81,7 @@ function GiftMatchingDonation({ walletAddress, ethProvider, givingFundBlockchain
       </Typography.Title>
       <Card>
         <Typography.Title level={4} style={{ marginTop: '0', marginBottom: '0'}}>
-          Deposit Funds:
+          Deposit More Funds:
         </Typography.Title>
         <br />
         <p>Amount</p>
@@ -115,7 +115,7 @@ function GiftMatchingDonation({ walletAddress, ethProvider, givingFundBlockchain
           <Col className="gutter-col" sm={{ span: 24 }} md={{ span: 8 }} key={nft.nftid.toString()}>
             <Card>
               <h2>NFT Id: {nft.nftid.toString()}</h2>
-              <p>Stake Amount: {nft.amount.toString() / 10 ** 18} AVAX</p>
+              <p>Matching Amount: {nft.amount.toString() / 10 ** 18} AVAX</p>
               <p>Start Date: {getDate(nft.startDate.toString())}</p>
             </Card>
           </Col>

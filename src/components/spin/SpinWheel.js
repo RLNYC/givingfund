@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Row, Col, Typography, Divider, List, Card } from 'antd';
 import * as htmlToImage from 'html-to-image';
 import  axios from "axios";
@@ -124,7 +125,7 @@ function SpinWheel({ walletAddress, ethProvider, stakeWheelBlockchain, ticketTok
               </List.Item>
           </List>
           <br />
-          <p>* Get more spin tickets by purchasing donation tokens.</p>
+          <p>* Get more spin tickets by <Link to="/my-giving">purchasing donation tokens.</Link></p>
         </Col>
       </Row>
 

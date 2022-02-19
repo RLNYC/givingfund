@@ -77,9 +77,11 @@ contract GivingFund is ERC721 {
             GiftInfo storage _data = giftList[_nftId];
             require(msg.value >= _data.amount, "You must donate equal or more than the matching amount");
             donationFundToken.mint(msg.sender, _data.amount * 20);
+            prizePool += _data.amount * 30 / 100;
+            charityAmount += _data.amount * 70 / 100;
         }
-        prizePool +=  msg.value * 7 / 100;
-        charityAmount += msg.value * 3 / 100;
+        prizePool +=  msg.value * 30 / 100;
+        charityAmount += msg.value * 70 / 100;
         totalDonation += msg.value;
         donationFundToken.mint(msg.sender, msg.value * 20);
         ticketToken.mint(msg.sender, msg.value * 10);
