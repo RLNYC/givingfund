@@ -10,9 +10,8 @@ import Wheel from '../Wheel';
 import PrizeInformationCard from '../PrizeInformationCard';
 import ResultModal from '../ResultModal';
 
-function SpinWheel({ walletAddress, ethProvider, stakeWheelBlockchain, ticketTokenBlockchain, myWinnings, setMyWinnings }) {
+function SpinWheel({ walletAddress, ethProvider, givingFundBlockchain, ticketTokenBlockchain, myWinnings, setMyWinnings }) {
   const [wheelclass, setWheelclass] = useState("box");
-  const [avaxBalance, setAvaxBalance] = useState(0);
   const [tokenBalance, setTokenBalance] = useState(0);
   const [winningURL, setWinnginURL] = useState("");
   const [wonOne, setWonOne] = useState(0);
@@ -20,21 +19,9 @@ function SpinWheel({ walletAddress, ethProvider, stakeWheelBlockchain, ticketTok
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [result, setResult] = useState('');
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    if(stakeWheelBlockchain){
-      getBalance();
-    }
-  }, [stakeWheelBlockchain])
-
   useEffect(() => {
     if(ticketTokenBlockchain) getTicketToken();
   }, [ticketTokenBlockchain])
-
-  const getBalance = async () => {
-    const balance = await ethProvider.getBalance(walletAddress);
-    setAvaxBalance(balance.toString());
-  }
 
   const getTicketToken = async () => {
     const amount = await ticketTokenBlockchain.balanceOf(walletAddress);
@@ -77,7 +64,7 @@ function SpinWheel({ walletAddress, ethProvider, stakeWheelBlockchain, ticketTok
   const earnToken = async () => {
     try{
       setLoading(true);
-      const transaction = await stakeWheelBlockchain.useTicketToken();
+      const transaction = await givingFundBlockchain.useTicketToken();
       const tx = await transaction.wait();
       console.log(tx);
       setUsedTickets(usedTickets + 1);
