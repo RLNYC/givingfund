@@ -1,11 +1,11 @@
 import React from 'react';
 import { Row, Col, Card } from 'antd';
 
-import icon1 from '../assets/777Jackpot_50%.png'
-import icon2 from '../assets/bigWin_25%.png';
-import icon3 from '../assets/moneyBag_15%.png';
-import icon4 from '../assets/money_10%.png';
-import icon5 from '../assets/coin_5%.png';
+import icon1 from '../assets/777Jackpot_50.png'
+import icon2 from '../assets/bigWin_25.png';
+import icon3 from '../assets/moneyBag_15.png';
+import icon4 from '../assets/money_10.png';
+import icon5 from '../assets/coin_5.png';
 import icon6 from '../assets/wheel 10 tickets.png';
 import icon7 from '../assets/spin_ticket_5.png';
 import icon8 from '../assets/better_luck.png';
