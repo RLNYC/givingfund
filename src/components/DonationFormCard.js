@@ -16,7 +16,7 @@ const tailLayout = {
   },
 };
 
-function DonationFormCard({ giftTokenBalance, stakeWheelBlockchain, getPoolPrizeInfo, getBalance }) {
+function DonationFormCard({ donationFundBalance }) {
   const [form] = Form.useForm();
 
   const [usd, setUSD] = useState("0");
@@ -27,13 +27,8 @@ function DonationFormCard({ giftTokenBalance, stakeWheelBlockchain, getPoolPrize
       setLoading(true);
       console.log(values);
 
-      const ethToWei = ethers.utils.parseUnits(values.donationAmount, 'ether');
-      const transaction = await stakeWheelBlockchain.stakeforTokens({ value: ethToWei });
-      const tx = await transaction.wait();
-      console.log(tx);
+      
       setLoading(false);
-      getPoolPrizeInfo();
-      getBalance();
     } catch(error) {
       console.error(error);
       setLoading(false);
@@ -48,7 +43,7 @@ function DonationFormCard({ giftTokenBalance, stakeWheelBlockchain, getPoolPrize
     <Spin spinning={loading}>
       <Card title="Donate directly to charities">
         <Typography.Title level={4} style={{ marginTop: '0', marginBottom: '1rem'}}>
-          Your Available Donation Tokens: {giftTokenBalance / 10 ** 18}
+          Your Available Donation Fund Tokens: {donationFundBalance / 10 ** 18}
         </Typography.Title>
         
         <Form {...layout} form={form} name="control-hooks" onFinish={onFinish}>

@@ -2,17 +2,22 @@ import React, { useEffect, useState } from 'react';
 import { Layout } from 'antd';
 
 import Sidebar from '../components/mygiving/Sidebar';
+import Donate from '../components/mygiving/Donate';
 import GiftDonation from '../components/mygiving/GiftDonation';
 import GiftMatchingDonation from '../components/mygiving/GiftMatchingDonation';
 
-function MyGiving({ walletAddress, ethProvider, givingFundBlockchain }) {
+function MyGiving({ walletAddress, ethProvider, givingFundBlockchain, donationFundTokenBlockchain }) {
   const [currentTab, setCurrentTab] = useState("Donate");
 
   let content;
 
   switch (currentTab) {
     case "Donate":
-      content = <h1>Donate</h1>;
+      content = <Donate
+                  walletAddress={walletAddress}
+                  ethProvider={ethProvider}
+                  givingFundBlockchain={givingFundBlockchain}
+                  donationFundTokenBlockchain={donationFundTokenBlockchain} />;
       break;
     case "Gift Donation":
       content = <GiftDonation
