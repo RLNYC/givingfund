@@ -36,20 +36,6 @@ function GiftDonation({ walletAddress, givingFundBlockchain }) {
 
   return (
     <div>
-      <Card>
-        <div style={{ display: "flex", alignItems: "center"}}>
-          <img src={ChartiyIcon} alt="Chartiy" width={70} style={{ marginRight: "1rem" }} />
-          <div>
-            <p style={{ fontSize: "1rem", fontWeight: "bold", marginBottom: 0, marginTop: "1rem"}}>
-              Donate directly to charities or gift your donation tokens to your friends or family.
-            </p>
-            <p style={{ fontSize: "1rem", fontWeight: "bold"}}>
-              Only verified charities are able to redeem donation tokens for cash.
-            </p>
-          </div>
-        </div>
-        
-      </Card>
       <Divider orientation="left">Match donation of your friends and family members</Divider>
       <Card>
         <h2>What's the Occasion?</h2>

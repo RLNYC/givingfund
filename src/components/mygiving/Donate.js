@@ -137,7 +137,8 @@ function Donate({ walletAddress, ethProvider, givingFundBlockchain, donationFund
               </Button>
             </Form.Item>
           </Form>
-
+          
+          <p>* 1 aEth = 20 donation fund token</p>
           <p>* You receive 10 spin ticket for every ETH purchase of donation fund token.</p>
           <p>* Only verified charities are able to redeem donation tokens for cash.</p>
         </Card>
