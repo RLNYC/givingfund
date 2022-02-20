@@ -17,6 +17,10 @@ function GiftMatchingDonation({ walletAddress, ethProvider, givingFundBlockchain
     if(givingFundBlockchain) getNFTs();
   }, [givingFundBlockchain]);
 
+  useEffect(() => {
+    if(givingFundBlockchain) getEventLog();
+  }, [givingFundBlockchain]);
+
   const getNFTs = async () => {
     const totalSupply = await givingFundBlockchain.totalSupply();
     let oldnfts = [];
@@ -33,6 +37,11 @@ function GiftMatchingDonation({ walletAddress, ethProvider, givingFundBlockchain
     }
     console.log(oldnfts);
     setNFTs(oldnfts);
+  }
+
+  const getEventLog = async () => {
+    const logs = await givingFundBlockchain.GiftTokenSent();
+    console.log(logs, "logs");
   }
 
   const getBalance = async () => {
@@ -108,14 +117,14 @@ function GiftMatchingDonation({ walletAddress, ethProvider, givingFundBlockchain
       </Card>
       <br />
       <Typography.Title level={3}>
-        Your Matching NFTs
+        Your Matching Gift
       </Typography.Title>
       <Row gutter={16}>
         {nfts.map(nft => (
           <Col className="gutter-col" sm={{ span: 24 }} md={{ span: 8 }} key={nft.nftid.toString()}>
             <Card>
               <h2>NFT Id: {nft.nftid.toString()}</h2>
-              <p>Matching Amount: {nft.amount.toString() / 10 ** 18} AVAX</p>
+              <p>Matching Amount: {nft.amount.toString() / 10 ** 18} AETH</p>
               <p>Start Date: {getDate(nft.startDate.toString())}</p>
             </Card>
           </Col>

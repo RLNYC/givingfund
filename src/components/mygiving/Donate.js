@@ -91,18 +91,6 @@ function Donate({ walletAddress, ethProvider, givingFundBlockchain, donationFund
   return (
     <div>
       <Card>
-        <div style={{ display: "flex", alignItems: "center"}}>
-          <img src={ChartiyIcon} alt="Chartiy" width={70} style={{ marginRight: "1rem" }} />
-          <div>
-            <p style={{ fontSize: "1rem", fontWeight: "bold", marginBottom: 0, marginTop: "1rem"}}>
-              Donate directly to charities or gift your donation tokens to your friends or family.
-            </p>
-            <p style={{ fontSize: "1rem", fontWeight: "bold"}}>
-              Only verified charities are able to redeem donation tokens for cash.
-            </p>
-          </div>
-        </div>
-
         <Typography.Title level={3}>
           Your Available Funds:  {ethBalance / 10 ** 18} aETH
         </Typography.Title>
@@ -142,7 +130,7 @@ function Donate({ walletAddress, ethProvider, givingFundBlockchain, donationFund
             
             <Form.Item {...tailLayout} loading={loading}>
               <Button type="primary" htmlType="submit" className="primary-bg-color">
-                Donate
+                Submit
               </Button>
               <Button htmlType="button" onClick={onReset}>
                 Reset
@@ -153,6 +141,18 @@ function Donate({ walletAddress, ethProvider, givingFundBlockchain, donationFund
           <p>* You receive 10 spin ticket for every ETH purchase of donation fund token.</p>
           <p>* Only verified charities are able to redeem donation tokens for cash.</p>
         </Card>
+
+        <div style={{ display: "flex", alignItems: "center", margin: '1rem 0'}}>
+          <img src={ChartiyIcon} alt="Chartiy" width={70} style={{ marginRight: "1rem" }} />
+          <div>
+            <p style={{ fontSize: "1rem", fontWeight: "bold", marginBottom: 0, marginTop: "1rem"}}>
+              Donate directly to charities or gift your donation tokens to your friends or family.
+            </p>
+            <p style={{ fontSize: "1rem", fontWeight: "bold"}}>
+              Only verified charities are able to redeem donation tokens for cash.
+            </p>
+          </div>
+        </div>
 
         <Card>
           <DonationFormCard donationFundBalance={donationFundBalance} />

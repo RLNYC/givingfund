@@ -78,7 +78,7 @@ function DonationFormCard({ donationFundBalance }) {
 
           <Form.Item {...tailLayout}>
             <Button type="primary" htmlType="submit" className="primary-bg-color">
-              Donate
+              Submit
             </Button>
             <Button htmlType="button" onClick={onReset}>
               Reset
