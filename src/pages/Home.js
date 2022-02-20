@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Typed from 'react-typed';
 import { useNavigate } from 'react-router-dom';
 import { Row, Col, Card, Typography, Button } from 'antd';
 import { SmileOutlined, GlobalOutlined, SolutionOutlined, MoneyCollectOutlined } from '@ant-design/icons';
@@ -42,7 +43,16 @@ function Home({ stakeWheelBlockchain }) {
           Making Charitable Giving
         </Typography.Title>
         <Typography.Title className="primary-color" style={{ marginTop: 0, marginBottom: '1rem'}}>
-          Fun
+          <Typed
+            strings={[
+              'Fun',
+              'Widespread',
+              'Transparent',
+              'Lasting',
+            ]}
+            typeSpeed={80}
+            loop={true}
+          />
         </Typography.Title>
         <h2>For You, Families, Friends, Companies</h2>
         <Button className="primary-bg-color" type="primary" size="large" onClick={() => navigate('/my-giving')}>
@@ -63,7 +73,9 @@ function Home({ stakeWheelBlockchain }) {
         <Card>
           <center>
             <SmileOutlined style={{ fontSize: '3rem'}} />
-            <h2>Fun</h2>
+            <h2>
+              Fun
+            </h2>
             <p>For every dollar of donation token, donors receive a ticket to spin a prize wheel and win a jackpot</p>
           </center>
         </Card>
