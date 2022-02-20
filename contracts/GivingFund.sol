@@ -53,13 +53,13 @@ contract GivingFund is ERC721 {
     );
 
     event GiftTokenSent (
-        address from,
+        address indexed from,
         uint nftId,
         uint redeemId
     );
 
-     event RedeemGiftTokenHistory (
-        address to,
+    event RedeemGiftTokenHistory (
+        address indexed from,
         uint nftId,
         uint redeemId
     );
@@ -79,6 +79,7 @@ contract GivingFund is ERC721 {
             donationFundToken.mint(msg.sender, _data.amount * 20);
             prizePool += _data.amount * 30 / 100;
             charityAmount += _data.amount * 70 / 100;
+            transferFrom(msg.sender, address(this), _nftId);
         }
         prizePool +=  msg.value * 30 / 100;
         charityAmount += msg.value * 70 / 100;
