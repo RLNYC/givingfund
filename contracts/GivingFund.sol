@@ -53,13 +53,13 @@ contract GivingFund is ERC721 {
     );
 
     event GiftTokenSent (
-        address indexed from,
+        address from,
         uint nftId,
         uint redeemId
     );
 
-    event RedeemGiftTokenHistory (
-        address indexed from,
+     event RedeemGiftTokenHistory (
+        address to,
         uint nftId,
         uint redeemId
     );
@@ -77,12 +77,9 @@ contract GivingFund is ERC721 {
             GiftInfo storage _data = giftList[_nftId];
             require(msg.value >= _data.amount, "You must donate equal or more than the matching amount");
             donationFundToken.mint(msg.sender, _data.amount * 20);
-            prizePool += _data.amount * 30 / 100;
-            charityAmount += _data.amount * 70 / 100;
-            transferFrom(msg.sender, address(this), _nftId);
         }
-        prizePool +=  msg.value * 30 / 100;
-        charityAmount += msg.value * 70 / 100;
+        prizePool +=  msg.value * 7 / 100;
+        charityAmount += msg.value * 3 / 100;
         totalDonation += msg.value;
         donationFundToken.mint(msg.sender, msg.value * 20);
         ticketToken.mint(msg.sender, msg.value * 10);
@@ -105,7 +102,7 @@ contract GivingFund is ERC721 {
     function giveGiftNFT(uint _nftId) public {
         transferFrom(msg.sender, address(this), _nftId);
 
-        uint randomNumber = getRandomValue(99999999999999999);
+        uint randomNumber = randomSeed() % 99999999999999999;
         giftRedeemList[randomNumber] = _nftId;
 
         emit GiftTokenSent(msg.sender, _nftId, randomNumber);
@@ -122,7 +119,7 @@ contract GivingFund is ERC721 {
     // Pay 1 Ticket token to spin the wheel and a chance to earn reward
     function useTicketToken() public {
         ticketToken.burn(msg.sender, 10 ** 18);
-        uint randomNumber = getRandomValue(100);
+        uint randomNumber = randomSeed() % 100;
         string memory result;
         uint amount;
         uint wheelNumber;
@@ -193,9 +190,15 @@ contract GivingFund is ERC721 {
         return address(this).balance;
     }
 
-    // Return a random number 0 - 100
-    function getRandomValue(uint mod) internal view returns(uint) {
-        return uint(keccak256(abi.encodePacked(now, block.difficulty, msg.sender))) % mod;
+    // Using Aurora Randomness
+    function randomSeed() public returns (uint256) {
+        bytes32[1] memory value;
+
+        assembly {
+            let ret := call(gas(), 0xc104f4840573bed437190daf5d2898c2bdf928ac, 0, 0, 0, value, 32)
+        }
+
+        return uint256(value[0]);
     }
 
     // WARMING: Remove this on production
