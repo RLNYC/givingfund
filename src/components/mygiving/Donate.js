@@ -92,7 +92,7 @@ function Donate({ walletAddress, ethProvider, givingFundBlockchain, donationFund
     <div>
       <Card>
         <Typography.Title level={3}>
-          Your Available Funds:  {ethBalance / 10 ** 18} aETH
+          Your Available Funds:  {ethBalance / 10 ** 18} ETH
         </Typography.Title>
 
         <Card>

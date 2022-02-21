@@ -7,7 +7,7 @@ import { SmileOutlined, GlobalOutlined, SolutionOutlined, MoneyCollectOutlined }
 import PrizePoolCard from '../components/PrizePoolCard';
 import HomeImg from '../assets/home-img.png';
 
-function Home({ stakeWheelBlockchain }) {
+function Home({ givingFundBlockchain }) {
   const navigate = useNavigate();
 
   const [donationTotal, setDonationTotal] = useState(0);
@@ -16,22 +16,22 @@ function Home({ stakeWheelBlockchain }) {
   const [charityAmount, setCharityAmount] = useState(0);
 
   useEffect(() => {
-    if(stakeWheelBlockchain){
+    if(givingFundBlockchain){
       getPoolPrizeInfo();
     }
-  }, [stakeWheelBlockchain])
+  }, [givingFundBlockchain])
 
   const getPoolPrizeInfo = async () => {
-    const donation = await stakeWheelBlockchain.totalDonation();
+    const donation = await givingFundBlockchain.totalDonation();
     setDonationTotal(donation);
 
-    const prize = await stakeWheelBlockchain.prizePool();
+    const prize = await givingFundBlockchain.prizePool();
     setPoolPrize(prize);
 
-    const award = await stakeWheelBlockchain.prizePoolWon();
+    const award = await givingFundBlockchain.prizePoolWon();
     setAwardedWon(award);
 
-    const charity = await stakeWheelBlockchain.charityAmount();
+    const charity = await givingFundBlockchain.charityAmount();
     setCharityAmount(charity);
   }
 

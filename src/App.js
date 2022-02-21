@@ -75,7 +75,7 @@ function App() {
                 </Route>
                 <Route path="/" element={
                   <Home
-                    GivingFundBlockchain={givingFundBlockchain} /> } >
+                    givingFundBlockchain={givingFundBlockchain} /> } >
                 </Route>
               </Routes>
             </Layout.Content>

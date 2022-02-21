@@ -102,7 +102,7 @@ function SpinWheel({ walletAddress, ethProvider, givingFundBlockchain, ticketTok
             itemLayout="horizontal">
               <List.Item>
                 <List.Item.Meta
-                  title={`AETH : ${wonOne / 10 ** 18}`}
+                  title={`ETH : ${wonOne / 10 ** 18}`}
                 />
               </List.Item>
               <List.Item>

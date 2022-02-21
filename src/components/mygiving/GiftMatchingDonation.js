@@ -73,15 +73,15 @@ function GiftMatchingDonation({ walletAddress, ethProvider, givingFundBlockchain
   return (
     <div>
       <Typography.Title level={3}>
-        Your sent matching gift:  {sentAmount / 10 ** 18} aETH
+        Your sent matching gift:  {sentAmount / 10 ** 18} ETH
       </Typography.Title>
       <p>All unused matching donation gift will expired in in a year and refunded to your account</p>
       <Typography.Title level={3}>
-        Your Available Funds for matching gift:  {ethBalance / 10 ** 18} aETH
+        Your Available Funds for matching gift:  {ethBalance / 10 ** 18} ETH
       </Typography.Title>
       <Card>
         <Typography.Title level={4} style={{ marginTop: '0', marginBottom: '0'}}>
-          Deposit More Funds:
+          Create Matching Donation Gift
         </Typography.Title>
         <br />
         <p>Amount</p>
@@ -93,19 +93,6 @@ function GiftMatchingDonation({ walletAddress, ethProvider, givingFundBlockchain
         </Button>
       </Card>
 
-      <Card>
-        <Typography.Title level={4} style={{ marginTop: '0', marginBottom: '0'}}>
-          Withdraw Funds:
-        </Typography.Title>
-        <br />
-        <p>Amount</p>
-        <InputNumber />
-        <br />
-        <br />
-        <Button className="primary-bg-color" type="primary">
-          Submit
-        </Button>
-      </Card>
       <br />
       <Typography.Title level={3}>
         Your Matching Gift
