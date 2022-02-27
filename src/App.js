@@ -35,14 +35,8 @@ function App() {
           setDonationFundTokenBlockchain={setDonationFundTokenBlockchain}
           setTicketTokenBlockchain={setTicketTokenBlockchain} />
         <Layout>
-          <Layout className="white-bg-color" style={{ padding: '0 5rem 5rem', minHeight: '92vh' }}>
-            <Layout.Content
-              style={{
-                padding: 24,
-                margin: 0,
-                minHeight: 280,
-              }}
-            >
+          <Layout className="white-bg-color app-layout">
+            <Layout.Content>
               <Routes>
                 <Route path="/my-giving" element={
                   <MyGiving

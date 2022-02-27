@@ -33,7 +33,7 @@ function Navbar({ walletAddress, setWalletAddress, setEthProvider, setGivingFund
   }
 
   return (
-    <Layout.Header className="white-bg-color" style={{ display: 'flex', alignItems: 'center',  padding: '0 6.5rem'}}>
+    <Layout.Header className="white-bg-color navbar">
       <Link to="/" style={{ marginRight: '2rem' }}>
         <img src={Logo} alt="Logo" width={180} />
       </Link>
