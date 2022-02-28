@@ -5,8 +5,9 @@ import Sidebar from '../components/spin/Sidebar';
 import SpinWheel from '../components/spin/SpinWheel';
 import Winnings from '../components/spin/Winnings';
 
-function Spin({ walletAddress, ethProvider, givingFundBlockchain, ticketTokenBlockchain, myWinnings, setMyWinnings }) {
+function Spin({ walletAddress, ethProvider, givingFundBlockchain, ticketTokenBlockchain }) {
   const [currentTab, setCurrentTab] = useState("Spin");
+  const [myWinnings, setMyWinnings] = useState([]);
 
   let content;
 
@@ -17,6 +18,7 @@ function Spin({ walletAddress, ethProvider, givingFundBlockchain, ticketTokenBlo
         ethProvider={ethProvider}
         givingFundBlockchain={givingFundBlockchain}
         ticketTokenBlockchain={ticketTokenBlockchain}
+        myWinnings={myWinnings}
         setMyWinnings={setMyWinnings} />;
       break;
     case "Winnings":
@@ -26,6 +28,8 @@ function Spin({ walletAddress, ethProvider, givingFundBlockchain, ticketTokenBlo
     default:
       content = 'Page not found';
   }
+
+  console.log(myWinnings, "myWinnings")
 
   return <div>
     <Layout>

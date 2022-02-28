@@ -19,7 +19,7 @@ function Winnings({ myWinnings }) {
       title: 'Amount',
       dataIndex: 'amount',
       key: 'amount',
-      render: text => <p>{text.toString() / 10 ** 18} AVAX</p>,
+      render: text => <p>{text.toString() / 10 ** 18} ETH</p>,
     },
   ];
 
