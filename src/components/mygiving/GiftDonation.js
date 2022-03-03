@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Row, Col, Divider  } from 'antd';
+import { Card, Row, Col, Divider } from 'antd';
 import {
   HeartOutlined,
   SmileOutlined,
@@ -7,7 +7,6 @@ import {
 } from '@ant-design/icons';
 
 import GiftFormCard from '../GiftFormCard';
-import ChartiyIcon from '../../assets/charity1.png';
 
 function GiftDonation({ walletAddress, givingFundBlockchain }) {
   const [occasionNum, setOccasionNum] = useState(1);
@@ -38,7 +37,7 @@ function GiftDonation({ walletAddress, givingFundBlockchain }) {
     <div>
       <Divider orientation="left">Match donation of your friends and family members</Divider>
       <Card>
-        <h2>What's the Occasion?</h2>
+        <p>What's the Occasion?</p>
         <Row gutter={16}>
           <Col
             className="gutter-col"

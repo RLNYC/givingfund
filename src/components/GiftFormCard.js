@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Spin, Row, Col, Form, Input, Select, Button, message } from 'antd';
+import { Spin, Row, Col, Form, Input, Select, Radio, Button, message } from 'antd';
 import Moralis from 'moralis';
 
 const msgList = [
@@ -11,6 +11,7 @@ const msgList = [
 function GiftFormCard({ givingFundBlockchain, nfts }) {
   const [form] = Form.useForm();
 
+  const [sendType, setSendType] = useState("");
   const [loading, setLoading] = useState(false);
 
   const onFinish = async (values) => {
@@ -51,9 +52,66 @@ function GiftFormCard({ givingFundBlockchain, nfts }) {
     form.resetFields();
   };
 
+  const onRadioChange = e => {
+    console.log('radio checked', e.target.value);
+    setSendType(e.target.value);
+  };
+
   return (
     <Spin spinning={loading}>
       <Form form={form} name="control-hooks" onFinish={onFinish} layout="vertical">
+        <Form.Item
+          name="sendType"
+          label="What to send as?"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Radio.Group onChange={onRadioChange} value={sendType}>
+            <Radio value="token">Token</Radio>
+            <Radio value="nft">NFT</Radio>
+          </Radio.Group>
+        </Form.Item>
+
+        {sendType === "token" && <Form.Item
+            style={{ maxWidth:' 500px'}}
+            name="donationFundToken"
+            label="Donation Fund Token"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+        }
+
+        {sendType === "nft" &&<Form.Item
+          style={{ maxWidth:' 500px'}}
+          name="matchingNFTs"
+          label="Matching NFTs"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Select
+            placeholder="Select your Matching NFTs (Drop down list)"
+            allowClear
+          >
+            {nfts.map(nft => (
+              <Select.Option key={nft.nftid.toString()} value={nft.nftid.toString()}>
+                NFT#{nft.nftid.toString()} ({nft.amount.toString() / 10 ** 18} AETH)
+              </Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
+        }
+
         <Row gutter={16}>
           <Col className="gutter-col" sm={{ span: 24 }} md={{ span: 12 }}>
             <Form.Item
@@ -78,27 +136,6 @@ function GiftFormCard({ givingFundBlockchain, nfts }) {
               ]}
             >
               <Input />
-            </Form.Item>
-
-            <Form.Item
-              name="matchingNFTs"
-              label="Matching NFTs"
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-            >
-              <Select
-                placeholder="Select your Matching NFTs (Drop down list)"
-                allowClear
-              >
-                {nfts.map(nft => (
-                  <Select.Option key={nft.nftid.toString()} value={nft.nftid.toString()}>
-                    NFT#{nft.nftid.toString()} ({nft.amount.toString() / 10 ** 18} AETH)
-                  </Select.Option>
-                ))}
-              </Select>
             </Form.Item>
 
             <Form.Item
@@ -136,7 +173,7 @@ function GiftFormCard({ givingFundBlockchain, nfts }) {
                 },
               ]}
             >
-              <Input.TextArea rows={17} />
+              <Input.TextArea rows={13} />
             </Form.Item>
           </Col>
         </Row>
