@@ -104,7 +104,7 @@ function GiftMatchingDonation({ walletAddress, ethProvider, givingFundBlockchain
               <h2>NFT Id: {nft.nftid.toString()}</h2>
               <p>Matching Amount: {nft.amount.toString() / 10 ** 18} AETH</p>
               <p>Start Date: {getDate(nft.startDate.toString())}</p>
-              <p>Orinail Funder: {nft.from.toString()}</p>
+              <p>Original Funder: {nft.from.substring(0, 7) + '...' + nft.from.substring(35, 42)}</p>
             </Card>
           </Col>
         ))}
