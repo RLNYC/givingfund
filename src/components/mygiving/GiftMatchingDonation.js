@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
-import { Row, Col, Card, InputNumber, Button, Typography } from 'antd';
+import { Row, Col, Card, Form, InputNumber, Input, Button, Typography } from 'antd';
 
 function GiftMatchingDonation({ walletAddress, ethProvider, givingFundBlockchain }) {
+  const [form] = Form.useForm();
+
   const [ethBalance, setETHBalance] = useState(0);
   const [depositAmount, setDepositAmount] = useState(0);
   const [depositLoading, setDepositLoading] = useState(false);
   const [nfts, setNFTs] = useState([]);
   const [sentAmount, setSentAmount] = useState(0);
+  const [transactionHash, setTransactionHash] = useState('');
 
   useEffect(() => {
     if(walletAddress) getBalance();
@@ -53,8 +56,8 @@ function GiftMatchingDonation({ walletAddress, ethProvider, givingFundBlockchain
       const tx = await transaction.wait();
       console.log(tx);
 
+      setTransactionHash(tx.transactionHash);
       getBalance();
-
       setDepositAmount(0);
       setDepositLoading(false);
     } catch(error) {
@@ -80,17 +83,28 @@ function GiftMatchingDonation({ walletAddress, ethProvider, givingFundBlockchain
         Your Available Funds for matching gift:  {ethBalance / 10 ** 18} ETH
       </Typography.Title>
       <Card>
-        <Typography.Title level={4} style={{ marginTop: '0', marginBottom: '0'}}>
+        <Typography.Title level={4} style={{ marginTop: '0'}}>
           Create Matching Donation Gift
         </Typography.Title>
+        
+        <Form
+          layout="inline"
+          form={form}
+        >
+          <Form.Item label="Amount (ETH)">
+            <InputNumber value={depositAmount} onChange={updateDeposit} />
+          </Form.Item>
+          <Form.Item>
+            <Button className="primary-bg-color" type="primary" onClick={depositFund} loading={depositLoading}>
+              Submit
+            </Button>
+          </Form.Item>
+        </Form>
         <br />
-        <p>Amount</p>
-        <InputNumber value={depositAmount} onChange={updateDeposit} />
-        <br />
-        <br />
-        <Button className="primary-bg-color" type="primary" onClick={depositFund} loading={depositLoading}>
-          Submit
-        </Button>
+
+        {transactionHash && <Typography.Text type="success">
+          Success, see transaction <a href={`https://testnet.aurorascan.dev/tx/${transactionHash}`} target="_blank" rel="noopener noreferrer">{transactionHash.substring(0, 10) + '...' + transactionHash.substring(41, 51)}</a>
+        </Typography.Text> }
       </Card>
 
       <br />
