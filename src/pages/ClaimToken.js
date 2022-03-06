@@ -45,7 +45,7 @@ function ClaimToken({ walletAddress, givingFundBlockchain }) {
   return (
     <div className="site-card-border-less-wrapper" style={{ display: 'flex', justifyContent: 'center'}}>
       <Spin spinning={loading}>
-        <Card title="Redeem Your Friend’s Gift For Your Charitable Giving " bordered={false} style={{ width: 400 }}>
+        <Card title="Redeem Your Friend’s Gift For Your Charitable Giving " bordered={false} style={{ width: 450, marginTop: "2rem", border: "1px solid black" }}>
           {walletAddress
             ? <div>
                 <Form {...layout} form={form} name="control-hooks" onFinish={onFinish}>
