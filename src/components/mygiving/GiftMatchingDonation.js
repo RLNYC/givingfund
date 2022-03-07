@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import { Row, Col, Card, Form, InputNumber, Input, Button, Typography } from 'antd';
 
+import CardLoading from '../CardLoading';
+
 function GiftMatchingDonation({ walletAddress, ethProvider, givingFundBlockchain }) {
   const [form] = Form.useForm();
 
   const [ethBalance, setETHBalance] = useState(0);
   const [depositAmount, setDepositAmount] = useState(0);
   const [depositLoading, setDepositLoading] = useState(false);
+  const [nftsLoading, setNftsLoading] = useState(false);
   const [nfts, setNFTs] = useState([]);
   const [sentAmount, setSentAmount] = useState(0);
   const [transactionHash, setTransactionHash] = useState('');
@@ -21,21 +24,28 @@ function GiftMatchingDonation({ walletAddress, ethProvider, givingFundBlockchain
   }, [givingFundBlockchain]);
 
   const getNFTs = async () => {
-    const totalSupply = await givingFundBlockchain.totalSupply();
-    let oldnfts = [];
+    try{
+      setNftsLoading(true);
+      const totalSupply = await givingFundBlockchain.totalSupply();
+      let oldnfts = [];
 
-    for(let i = 1; i <= +totalSupply; i++){
-      const tokenOwner = await givingFundBlockchain.ownerOf(i);
-      
-      if(tokenOwner === walletAddress){
-        let data = await givingFundBlockchain.giftList(i);
-        console.log(data);
-        oldnfts.push(data);
-        setSentAmount(sentAmount + +data.amount.toString());
+      for(let i = 1; i <= +totalSupply; i++){
+        const tokenOwner = await givingFundBlockchain.ownerOf(i);
+        
+        if(tokenOwner === walletAddress){
+          let data = await givingFundBlockchain.giftList(i);
+          console.log(data);
+          oldnfts.push(data);
+          setSentAmount(sentAmount + +data.amount.toString());
+        }
       }
+      console.log(oldnfts);
+      setNFTs(oldnfts);
+      setNftsLoading(false);
+    } catch(error) {
+      console.error(error);
+      setNftsLoading(false);
     }
-    console.log(oldnfts);
-    setNFTs(oldnfts);
   }
 
   const getBalance = async () => {
@@ -111,18 +121,21 @@ function GiftMatchingDonation({ walletAddress, ethProvider, givingFundBlockchain
       <Typography.Title level={3}>
         Your Matching Gift
       </Typography.Title>
-      <Row gutter={16}>
-        {nfts.map(nft => (
-          <Col className="gutter-col" sm={{ span: 24 }} md={{ span: 8 }} key={nft.nftid.toString()}>
-            <Card>
-              <h2>NFT Id: {nft.nftid.toString()}</h2>
-              <p>Matching Amount: {nft.amount.toString() / 10 ** 18} AETH</p>
-              <p>Start Date: {getDate(nft.startDate.toString())}</p>
-              <p>Original Funder: {nft.from.substring(0, 7) + '...' + nft.from.substring(35, 42)}</p>
-            </Card>
-          </Col>
-        ))}
-      </Row>
+      {nftsLoading
+        ? <CardLoading />
+        : <Row gutter={16}>
+            {nfts.map(nft => (
+              <Col className="gutter-col" sm={{ span: 24 }} md={{ span: 8 }} key={nft.nftid.toString()}>
+                <Card>
+                  <h2>NFT Id: {nft.nftid.toString()}</h2>
+                  <p>Matching Amount: {nft.amount.toString() / 10 ** 18} AETH</p>
+                  <p>Start Date: {getDate(nft.startDate.toString())}</p>
+                  <p>Original Funder: {nft.from.substring(0, 7) + '...' + nft.from.substring(35, 42)}</p>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+      }
     </div>
   )
 }
