@@ -52,12 +52,12 @@ function SpinWheel({ walletAddress, ethProvider, givingFundBlockchain, ticketTok
     setWinnginURL(cidLink);
   }
 
-  const startRotation = (wheelNumber) => {
+  const startRotation = (wheelNumber, text) => {
     setWheelclass("box start-rotate");
     setTimeout(async () => {
       setWheelclass("box start-rotate stop-rotate");
       setIsModalVisible(true);
-      takeScreenShot();
+      if(text !== "Nothing") takeScreenShot();
     }, (1000 + (125 * +wheelNumber)))
   }
 
@@ -70,7 +70,7 @@ function SpinWheel({ walletAddress, ethProvider, givingFundBlockchain, ticketTok
       setUsedTickets(usedTickets + 1);
       setWonOne(tx.events[tx.events.length - 1].args.amount.toString());
       setResult(tx.events[tx.events.length - 1].args.result);
-      startRotation(tx.events[tx.events.length - 1].args.wheelNumber.toString());
+      startRotation(tx.events[tx.events.length - 1].args.wheelNumber.toString(), tx.events[tx.events.length - 1].args.result);
 
       setMyWinnings([...myWinnings, { "id": myWinnings.length + 1, "result": tx.events[tx.events.length - 1].args.result, "amount": tx.events[tx.events.length - 1].args.amount.toString()}])
       setLoading(false);
