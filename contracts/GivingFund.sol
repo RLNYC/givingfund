@@ -37,13 +37,6 @@ contract GivingFund is ERC721 {
         address payable from
     );
 
-    event Unstaked (
-        uint nftid,
-        uint startDate,
-        uint stakeAmount,
-        address payable from
-    );
-
     event WonWheel (
         address buyer,
         string result,
@@ -53,13 +46,13 @@ contract GivingFund is ERC721 {
     );
 
     event GiftTokenSent (
-        address from,
+        address indexed from,
         uint nftId,
         uint redeemId
     );
 
      event RedeemGiftTokenHistory (
-        address to,
+        address indexed from,
         uint nftId,
         uint redeemId
     );
