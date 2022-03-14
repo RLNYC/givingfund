@@ -91,13 +91,9 @@ function Donate({ walletAddress, ethProvider, givingFundBlockchain, donationFund
   return (
     <div>
       <Card>
-        <Typography.Title level={3}>
+        <Card title=" Purchase Donation Fund Token">
+          <Typography.Title level={4} style={{ marginTop: '0'}}>
           Your Available Funds:  {ethBalance / 10 ** 18} ETH
-        </Typography.Title>
-
-        <Card>
-          <Typography.Title level={4} style={{ marginTop: '0', marginBottom: '0'}}>
-            Purchase Donation Fund Token
           </Typography.Title>
           <Form {...layout} form={form} name="control-hooks" onFinish={onFinish}>
             <Form.Item
@@ -155,9 +151,7 @@ function Donate({ walletAddress, ethProvider, givingFundBlockchain, donationFund
           </div>
         </div>
 
-        <Card>
-          <DonationFormCard donationFundBalance={donationFundBalance} />
-        </Card>
+        <DonationFormCard donationFundBalance={donationFundBalance} />
         
       </Card>
       
