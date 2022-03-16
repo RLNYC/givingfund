@@ -16,6 +16,7 @@ contract GivingFund is ERC721 {
     address payable _owner;
     mapping(uint => GiftInfo) public giftList;
     mapping(uint => uint) public giftRedeemList;
+    mapping(uint => uint) public tokenRedeemList;
 
     constructor(DonationFundToken _donationFundToken, TicketToken _ticketToken) ERC721("Giving Fund NFT", "GFNFT") public {
         _owner = msg.sender;
@@ -51,9 +52,21 @@ contract GivingFund is ERC721 {
         uint redeemId
     );
 
-     event RedeemGiftTokenHistory (
+    event DonationTokenSent (
+        address indexed from,
+        uint amount,
+        uint redeemId
+    );
+
+    event RedeemGiftTokenHistory (
         address indexed from,
         uint nftId,
+        uint redeemId
+    );
+
+    event RedeemDonationTokenHistory (
+        address indexed from,
+        uint amount,
         uint redeemId
     );
 
@@ -91,7 +104,7 @@ contract GivingFund is ERC721 {
         emit Gifted(_nftId, block.timestamp, msg.value, msg.sender);
     }
 
-    // Transfer the Match NFT to contract
+    // Transfer the Match NFT to contract and create Redeem code
     function giveGiftNFT(uint _nftId) public {
         transferFrom(msg.sender, address(this), _nftId);
 
@@ -101,12 +114,33 @@ contract GivingFund is ERC721 {
         emit GiftTokenSent(msg.sender, _nftId, randomNumber);
     }
 
-    // User redeem for Gift NFT by redeem Id
-    function redeemToken(uint _redeemId) public {
-        uint _nftId = giftRedeemList[_redeemId];
-        _transfer(address(this), msg.sender, _nftId);
+    // Burn donation token and create Redeem code
+    function giveDonationToken(uint _amount) public {
+        donationFundToken.burn(msg.sender, _amount);
 
-        emit RedeemGiftTokenHistory(msg.sender, _nftId, _redeemId);
+        uint randomNumber = randomSeed() % 99999999999999999;
+        tokenRedeemList[randomNumber] = _amount;
+
+        emit DonationTokenSent(msg.sender, _amount, randomNumber);
+    }
+
+    // User redeem for Gift NFT or donation tokens by redeem Id
+    function redeemToken(uint _redeemId) public {
+        if(giftRedeemList[_redeemId] > 0 ){
+            uint _nftId = giftRedeemList[_redeemId];
+            _transfer(address(this), msg.sender, _nftId);
+            giftRedeemList[_redeemId] = 0;
+
+            emit RedeemGiftTokenHistory(msg.sender, _nftId, _redeemId);
+        }
+        else if(tokenRedeemList[_redeemId] > 0 ) {
+            uint _amount = tokenRedeemList[_redeemId];
+            donationFundToken.mint(msg.sender, _amount);
+            tokenRedeemList[_redeemId] = 0;
+
+            emit RedeemDonationTokenHistory(msg.sender, _amount, _amount);
+        }
+        
     }
 
     // Pay 1 Ticket token to spin the wheel and a chance to earn reward
