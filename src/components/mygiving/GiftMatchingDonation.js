@@ -69,6 +69,7 @@ function GiftMatchingDonation({ walletAddress, ethProvider, givingFundBlockchain
       setTransactionHash(tx.transactionHash);
       getBalance();
       setDepositAmount(0);
+      await getNFTs();
       setDepositLoading(false);
     } catch(error) {
       console.error(error);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Spin, Row, Col, Form, Input, Select, Radio, Button, message } from 'antd';
 import { ethers } from 'ethers';
 import Moralis from 'moralis';
@@ -9,7 +9,7 @@ const msgList = [
   "Congratulations"
 ];
 
-function GiftFormCard({ givingFundBlockchain, nfts }) {
+function GiftFormCard({ givingFundBlockchain, nfts, donationFundBalance }) {
   const [form] = Form.useForm();
 
   const [sendType, setSendType] = useState("");
@@ -90,9 +90,9 @@ function GiftFormCard({ givingFundBlockchain, nfts }) {
         </Form.Item>
 
         {sendType === "token" && <Form.Item
-            style={{ maxWidth:' 500px'}}
+            style={{ maxWidth:'450px'}}
             name="donationFundToken"
-            label="Donation Fund Token"
+            label={`Donation Fund Token (Balance ${donationFundBalance / 10 ** 18} DFT)`}
             rules={[
               {
                 required: true,
@@ -104,7 +104,7 @@ function GiftFormCard({ givingFundBlockchain, nfts }) {
         }
 
         {sendType === "nft" &&<Form.Item
-          style={{ maxWidth:' 500px'}}
+          style={{ maxWidth:'450px'}}
           name="matchingNFTs"
           label="Matching NFTs"
           rules={[

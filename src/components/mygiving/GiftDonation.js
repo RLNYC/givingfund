@@ -8,13 +8,23 @@ import {
 
 import GiftFormCard from '../GiftFormCard';
 
-function GiftDonation({ walletAddress, givingFundBlockchain }) {
+function GiftDonation({ walletAddress, givingFundBlockchain, donationFundTokenBlockchain }) {
   const [occasionNum, setOccasionNum] = useState(1);
+  const [donationFundBalance, setDonationFundBalance] = useState(0);
   const [nfts, setNFTs] = useState([]);
 
   useEffect(() => {
     if(givingFundBlockchain) getNFTs();
   }, [givingFundBlockchain]);
+
+  useEffect(() => {
+    if(donationFundTokenBlockchain) getDonationFundToken();
+  }, [donationFundTokenBlockchain])
+
+  const getDonationFundToken = async () => {
+    const amount = await donationFundTokenBlockchain.balanceOf(walletAddress);
+    setDonationFundBalance(amount);
+  }
 
   const getNFTs = async () => {
     const totalSupply = await givingFundBlockchain.totalSupply();
@@ -75,7 +85,8 @@ function GiftDonation({ walletAddress, givingFundBlockchain }) {
           occasionNum={occasionNum}
           walletAddress={walletAddress}
           givingFundBlockchain={givingFundBlockchain}
-          nfts={nfts} />
+          nfts={nfts}
+          donationFundBalance={donationFundBalance} />
       </Card>
     </div>
   )

@@ -23,7 +23,8 @@ function MyGiving({ walletAddress, ethProvider, givingFundBlockchain, donationFu
       content = <GiftDonation
                   walletAddress={walletAddress}
                   ethProvider={ethProvider}
-                  givingFundBlockchain={givingFundBlockchain} />;
+                  givingFundBlockchain={givingFundBlockchain}
+                  donationFundTokenBlockchain={donationFundTokenBlockchain} />;
       break;
     case "Gift Matching Donation":
       content = <GiftMatchingDonation
