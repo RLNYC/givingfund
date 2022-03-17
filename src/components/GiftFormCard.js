@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Spin, Row, Col, Form, Input, Select, Radio, Button, message } from 'antd';
+import { ethers } from 'ethers';
 import Moralis from 'moralis';
 
 const msgList = [
@@ -19,13 +20,26 @@ function GiftFormCard({ givingFundBlockchain, nfts }) {
       setLoading(true);
       console.log(values);
 
-      const transaction = await givingFundBlockchain.giveGiftNFT(values.matchingNFTs);
-      const tx = await transaction.wait();
-      console.log(tx);
-      
-      const redeemId = tx.events[2].args.redeemId.toString();
-      console.log(redeemId);
+      let redeemId;
 
+      if(sendType === "token"){
+        const ethToWei = ethers.utils.parseUnits(values.donationFundToken, 'ether');
+        const transaction = await givingFundBlockchain.giveDonationToken(ethToWei);
+        const tx = await transaction.wait();
+        console.log(tx);
+        
+        redeemId = tx.events[1].args.redeemId.toString();
+        console.log(redeemId);
+      }
+      else {
+        const transaction = await givingFundBlockchain.giveGiftNFT(values.matchingNFTs);
+        const tx = await transaction.wait();
+        console.log(tx);
+        
+        redeemId = tx.events[2].args.redeemId.toString();
+        console.log(redeemId);
+      }
+      
       Moralis.Cloud.run("sendEmailToUser", {
         email: values.recipient,
         fromemail: values.fromEmail,
@@ -85,7 +99,7 @@ function GiftFormCard({ givingFundBlockchain, nfts }) {
               },
             ]}
           >
-            <Input />
+            <Input  type="number"/>
           </Form.Item>
         }
 
