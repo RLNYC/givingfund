@@ -3,6 +3,10 @@ Making charitable giving fun, widespread, transparent, and lasting
 
 [![Add to Homescreen](https://img.shields.io/badge/Skynet-Add%20To%20Homescreen-00c65e?logo=skynet&labelColor=0d0d0d)](https://homescreen.hns.siasky.net/#/skylink/CACWZ_v1JWCP9qJtzFsyvugZG8y4CE-mbXIXNW6e6lsaIQ)
 
+## Live Sites
+- https://1009cpvrukim13vmk9msompinrk1i6ucn044v9jde8bjarkut9dhk88.siasky.net/ (Reef testnet)
+- https://give-funds.netlify.app/ (Aurora testnet)
+
 ## Contracts deployed to Reef testnet
 - TICKET_TOKEN_ADDRESS = [0x20214C299D00065cf3D42Bd639D9016ce94ddB1D](https://testnet.reefscan.com/contract/0x20214C299D00065cf3D42Bd639D9016ce94ddB1D)
 - DONATION_FUND_TOKEN_ADDRESS = [0xE6f369d839B80bd7e21CEEBa8adcfbC180F68B0F](https://testnet.reefscan.com/contract/0xE6f369d839B80bd7e21CEEBa8adcfbC180F68B0F)
