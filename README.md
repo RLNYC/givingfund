@@ -7,6 +7,12 @@ Making charitable giving fun, widespread, transparent, and lasting
 - https://1009cpvrukim13vmk9msompinrk1i6ucn044v9jde8bjarkut9dhk88.siasky.net/ (Reef testnet)
 - https://give-funds.netlify.app/ (Aurora testnet)
 
+## Bounties Applied
+- REEF - Deploy contracts on REEF CHAIN testnet
+- IPFS / FILECOIN - Used Pinata to store a screenshot of the winning wheel on IPFS so that user can tweet their winning
+- NEAR - Deploy contracts on Aurora testnet
+- SKYNET LABS - Deploy Dapp frontend to Skynet and add support for Skynet’s Homescreen
+
 ## Contracts deployed to Reef testnet
 - TICKET_TOKEN_ADDRESS = [0x20214C299D00065cf3D42Bd639D9016ce94ddB1D](https://testnet.reefscan.com/contract/0x20214C299D00065cf3D42Bd639D9016ce94ddB1D)
 - DONATION_FUND_TOKEN_ADDRESS = [0xE6f369d839B80bd7e21CEEBa8adcfbC180F68B0F](https://testnet.reefscan.com/contract/0xE6f369d839B80bd7e21CEEBa8adcfbC180F68B0F)
