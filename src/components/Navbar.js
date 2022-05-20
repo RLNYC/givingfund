@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Layout, Menu, Button } from 'antd';
 import { ethers } from 'ethers';
 import Web3Modal from 'web3modal';
+import UAuth from '@uauth/js';
 
 import { GIVING_FUND_ADDRESS, DONATION_FUND_TOKEN_ADDRESS, TICKET_TOKEN_ADDRESS, GIFT_TOKEN_ADDRESS } from '../config';
 import GivingFund from '../artifacts/contracts/GivingFund.sol/GivingFund.json';
@@ -10,7 +11,31 @@ import DonationFundToken from '../artifacts/contracts/DonationFundToken.sol/Dona
 import TicketToken from '../artifacts/contracts/TicketToken.sol/TicketToken.json';
 import Logo from '../assets/logo.png';
 
+import {
+  UNSTOPPABLEDOMAINS_CLIENT_ID,
+  UNSTOPPABLEDOMAINS_REDIRECT_URI,
+} from '../config';
+
+const uauth = new UAuth({
+  clientID: UNSTOPPABLEDOMAINS_CLIENT_ID,
+  scope: 'openid email wallet',
+  redirectUri: UNSTOPPABLEDOMAINS_REDIRECT_URI,
+})
+
 function Navbar({ walletAddress, setWalletAddress, setEthProvider, setGivingFundBlockchain, setDonationFundTokenBlockchain, setTicketTokenBlockchain }) {
+  const [domainName, setDomainName] = useState('');
+
+  const login = async () => {
+    try {
+        const authorization = await uauth.loginWithPopup();
+
+        console.log(authorization);
+        setDomainName(authorization.idToken.sub);
+    } catch (error) {
+        console.error(error);
+    }
+  }
+
   const connetToWallet = async () => {
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
@@ -64,7 +89,27 @@ function Navbar({ walletAddress, setWalletAddress, setEthProvider, setGivingFund
           </Link>
         </Menu.Item>
       </Menu>
-      {!walletAddress
+      {!domainName
+        ? <div>
+            <Button
+              className="primary-bg-color"
+              style={{ marginBottom: '7px'}}
+              type="primary"
+              onClick={login}
+            >
+              Login with Unstoppable Domain
+            </Button>
+          </div>
+        : <Button
+            className="primary-bg-color"
+            style={{ marginBottom: '7px'}}
+            type="primary"
+          >
+            {domainName}
+          </Button>
+      }
+
+      {/* {!walletAddress
         ? <div>
             <Button
               className="primary-bg-color"
@@ -82,7 +127,7 @@ function Navbar({ walletAddress, setWalletAddress, setEthProvider, setGivingFund
           >
             { walletAddress.substring(0, 7) + '...' + walletAddress.substring(35, 42) }
           </Button>
-      }
+      } */}
     </Layout.Header>
   )
 }
